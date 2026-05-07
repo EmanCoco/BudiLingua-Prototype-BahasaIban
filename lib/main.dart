@@ -75,7 +75,8 @@ class BudiLinguaApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const SplashScreen(), // Changed to point to Splash Screen flow instead of HomeScreen directly
+      home: const SplashScreen(),
     );
   }
 }
+

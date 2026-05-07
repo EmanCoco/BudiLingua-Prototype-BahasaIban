@@ -64,12 +64,15 @@ class LessonModel {
 
 class QuestionModel {
   final String id;
-  final String type; // e.g., "translate"
+  final String type; // e.g., "translate", "recognize_word", "matching"
   final String promptText;
   final String promptIban;
   final List<String> correctIbanList;
   final List<String> allIbanWords;
   final String? characterAsset; // local asset for character
+  final List<Map<String, String>>? options; // Added for recognize_word type
+  final Map<String, String>? matchingPairs; // Added for matching type
+  final String? grammarTip; // Added for cultural/grammatical explanations
 
   QuestionModel({
     required this.id,
@@ -79,5 +82,8 @@ class QuestionModel {
     required this.correctIbanList,
     required this.allIbanWords,
     this.characterAsset,
+    this.options,
+    this.matchingPairs,
+    this.grammarTip,
   });
 }

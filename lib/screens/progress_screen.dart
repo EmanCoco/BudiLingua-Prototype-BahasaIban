@@ -113,18 +113,38 @@ class ProgressScreen extends StatelessWidget {
   Widget _buildNode(BuildContext context, bool isUnlocked, bool isCompleted, String lessonId, double offsetX) {
      bool isActive = isUnlocked && !isCompleted;
 
-     return Transform.translate(
-       offset: Offset(offsetX, 0),
-       child: GestureDetector(
-         onTap: () async {
-            if (isUnlocked) {
-               await context.read<LessonProvider>().fetchQuestionsForLesson(lessonId);
-               if (context.mounted) {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const LessonScreen()));
-               }
-            }
-         },
-         child: isActive ? _buildActiveNode() : _buildInactiveNode(isCompleted),
+     return SizedBox(
+       width: double.infinity,
+       child: Transform.translate(
+         offset: Offset(offsetX, 0),
+         child: GestureDetector(
+           onTap: () async {
+              if (isUnlocked) {
+                 // Capture the navigator before the async gap to ensure it always pushes
+                 final nav = Navigator.of(context);
+                 
+                 // Show a small snackbar so the user knows the button was actually pressed
+                 ScaffoldMessenger.of(context).showSnackBar(
+                   SnackBar(
+                     content: Text("Loading Stage $lessonId..."), 
+                     duration: const Duration(seconds: 1)
+                   )
+                 );
+
+                 await context.read<LessonProvider>().fetchQuestionsForLesson(lessonId);
+                 
+                 nav.push(MaterialPageRoute(builder: (context) => const LessonScreen()));
+              } else {
+                 ScaffoldMessenger.of(context).showSnackBar(
+                   const SnackBar(
+                     content: Text("You need to complete the previous stage first!"), 
+                     duration: Duration(seconds: 2)
+                   )
+                 );
+              }
+           },
+           child: isActive ? _buildActiveNode() : _buildInactiveNode(isCompleted),
+         ),
        ),
      );
   }

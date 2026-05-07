@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/lesson_provider.dart';
-import '../models/lesson_model.dart';
 
 class AchievementScreen extends StatelessWidget {
   const AchievementScreen({Key? key}) : super(key: key);

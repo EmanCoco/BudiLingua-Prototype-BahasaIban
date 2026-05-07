@@ -19,7 +19,6 @@ class LessonProvider with ChangeNotifier {
 
   final DatabaseService _dbService = DatabaseService();
   final IbanAIService _aiService = IbanAIService();
-  final AudioPlayer _audioPlayer = AudioPlayer();
 
   List<LanguageModel> _languages = [];
   List<LessonModel> _lessons = [];

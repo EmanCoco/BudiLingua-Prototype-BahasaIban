@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'main_layout.dart';
-import '../providers/lesson_provider.dart';
 
 class LearningModeScreen extends StatefulWidget {
   const LearningModeScreen({Key? key}) : super(key: key);
